@@ -1,0 +1,59 @@
+/* Invite Friends to Register CSS */
+
+div.error,
+td.error input {
+	background:#FFEBE8 !important;
+	border:1px solid;
+	border-color:#C00 !important;
+}
+
+div.updated {
+	background-color: #ffffe0;
+	border:1px solid;
+	border-color: #e6db55;
+}
+
+div.error,
+div.updated {
+	margin: 5px 0 15px;
+	padding: 0 .6em;
+	border-radius:3px;
+}
+
+div.updated p, div.error p {
+	margin: .5em 0;
+	padding: 2px;
+}
+
+.error-msg {
+	display:none;
+	font:italic .9em/1.5em sans-serif;
+	color:#fff;
+	background:#c00;
+	padding:0 5px;
+	border-radius:3px;
+	margin-top:2px;
+	float:left;
+}
+
+td.error .error-msg {
+	display:block;
+}
+
+.loading,
+.screen-reader-text,
+#invfr_form tr:first-child .invfr_remove {
+	display:none;
+}
+
+#invfr_form .form-table {
+	width:auto;
+}
+
+#invfr_form td {
+	max-width:250px;
+}
+
+#invfr_form td input {
+	width:15em;
+}
