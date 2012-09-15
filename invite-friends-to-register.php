@@ -3,7 +3,7 @@
 Plugin Name: Invite Friends to Register
 Plugin URI: http://tammyhartdesigns.com/plugins-themes
 Description: Use this plugin to allow users to invite their friends to register on your site.
-Version: 0.1
+Version: 0.2
 Author: Tammy Hart
 Author URI: http://tammyhartdesigns.com
 License: GPLv2 or later
@@ -32,7 +32,10 @@ define( 'INVFR_URL', plugin_dir_url( __FILE__ ) );
 define( 'INVFR_PATH', plugin_dir_path( __FILE__ ) );
 
 // Localization
-load_plugin_textdomain( 'invfr', false, INVFR_URL . '/lang' );
+add_action( 'init', 'invfr_textdomain' );
+function invfr_textdomain() {
+	load_plugin_textdomain( 'invfr', false, INVFR_URL . '/lang' );
+}
 
 // Add the invite form page under Users and a settings page under Settings
 add_action( 'admin_menu', 'invfr_add_pages' );
@@ -46,6 +49,7 @@ include( INVFR_PATH . '/inc/functions.php' );
 include( INVFR_PATH . '/inc/settings.php' );
 include( INVFR_PATH . '/inc/inviteform.php' );
 include( INVFR_PATH . '/inc/registration.php' );
+include( INVFR_PATH . '/inc/sendmail.php' );
 
 // enqueue stuff
 add_action( 'wp_footer', 'invfr_enqueue' );

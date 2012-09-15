@@ -6,7 +6,7 @@ jQuery(function(jQuery) {
 		// clone
 		var row = jQuery('#invfr_form tr:last');
 		var clone = row.clone();
-		clone.find(':text').val('');
+		clone.find('input').val('');
 		row.after(clone);
 		// increment name and id
 		clone.find('input')

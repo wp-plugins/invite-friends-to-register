@@ -1,13 +1,13 @@
 <?php
 
 /**
- * echos a hidden field for storing the referrer's ID
+ * echos a hidden field for storing the referrer's ID in $_POST
  */
 add_action( 'register_form', 'invfr_referrer_field');
 function invfr_referrer_field() {
 	$referrer = '';
 	if ( $_REQUEST['invfr'] ) $referrer = $_REQUEST['invfr'];
-	else $referrer = $_POST['invfr_referrer'];
+	elseif ( $_POST['invfr_referrer'] ) $referrer = $_POST['invfr_referrer'];
 	if ( $referrer != '' )
 		echo '<input type="hidden" name="invfr_referrer" value="' . $referrer . '" />';
 }

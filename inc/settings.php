@@ -28,14 +28,14 @@ function invfr_subject_field() {
 	$settings = invfr_get_settings();
 	?>
 	<input type="text" class="regular-text" name="invfr_settings[subject]" id="subject" value="<?php echo esc_attr( $settings['subject'] ); ?>" /><br />
-	<label class="description" for="subject"><?php _e( 'Available tokens: ', 'invfr' ); echo invfr_tokens( false ); ?></label>
+	<label class="description" for="subject"><?php _e( 'Available tokens: ', 'invfr' ); echo invfr_tokens(); ?></label>
 	<?php
 }
 function invfr_message_field() {
 	$settings = invfr_get_settings();
 	?>
 	<textarea rows="5" cols="80" name="invfr_settings[message]" id="message"><?php echo wp_filter_nohtml_kses( $settings['message'] ); ?></textarea><br />
-	<label class="description" for="message"><?php _e( 'Available tokens: ', 'invfr' ); echo invfr_tokens( false ); ?></label>
+	<label class="description" for="message"><?php _e( 'Available tokens: ', 'invfr' ); echo invfr_tokens(); ?></label>
 	<?php
 }
 function invfr_redirect_field() {

@@ -9,7 +9,7 @@ function invfr_form() {
 	$invfr_add_scripts = true;
 	
 	// only allow the form to be used if the user is logged in. 
-	// Offer a link that redirects back to the page the form 
+	// Offer a login link that redirects back to the page the form 
 	// was trying to be called on
 	if ( !is_user_logged_in() )
 		$output = sprintf( __( 'You must be logged in to invite friends. <a href="%s">Log in</a>', 'invfr'), wp_login_url( get_permalink( $post->ID ) ) );
@@ -32,23 +32,24 @@ function invfr_form() {
 					var str = jQuery(this).serialize();					 
 					   jQuery.ajax({
 						   type: 'POST',
-						   url: '<?php echo INVFR_URL; ?>inc/sendmail.php',
+						   url: '<?php echo admin_url( 'admin-ajax.php' ); ?>',
 						   data: str,
 						   success: function(msg) {	
-								jQuery('#invfr_note').ajaxComplete(function(event, request, settings) { 	
+								jQuery('#invfr_note').ajaxComplete(function(event, request, settings) {
+									msg = msg.replace(/(\s+)?.$/, "");	
 									if( msg == 'sent' ) {
 										result = '<div class="updated"><p><?php _e( 'Your invitation has been sent! Send another?', 'invfr' ); ?></p></div>';
 										jQuery('#invfr_form input[type=text], #invfr_form input[type=email]').val('');
 									} else {
-										// loop through the error items to indicate which fields have errors
+										//loop through the error items to indicate which fields have errors
 										msg = msg.replace(/[\[\]']+/g,'');
 										msg = msg.split(',');
 										jQuery.each( msg, function ( i, id ) {
 											id = id.replace(/["']{1}/g, '');
 											jQuery(id).parent('td').addClass('error');
-											//alert(i + ' : ' + id);
 										});
 										result = '<div class="error"><p><?php _e( '<strong>ERROR:</strong> Check your form for the errors which are highlighted below.', 'invfr' ); ?></p></div>';
+										//result = msg;
 										msg = '';
 									}
 									jQuery(this).html(result);
@@ -94,6 +95,7 @@ function invfr_form() {
 				<input type="hidden" name="user_id" value="<?php echo $user_id; ?>" />
 				<input type="hidden" name="user_name" value="<?php echo $user_name; ?>" />
 				<input type="hidden" name="user_email" value="<?php echo $user_email; ?>" />
+				<input type="hidden" name="action" value="invfr_process_ajax"/>
 			</form>
 		</div>
 		<?php
@@ -104,18 +106,14 @@ function invfr_form() {
 	return $output;
 }
 
-/**
- * Template tag that echos the invite form
- */
+// Template tag
 if ( !function_exists( 'invite_friends' ) ) {
 	function invite_friends( ) {
 		echo invfr_form();
 	}
 }
 
-/**
- * Shortcode that returns the invite form
- */
+// Shortcode
 add_shortcode( 'invite_friends', 'invfr_form' );
 
 /**

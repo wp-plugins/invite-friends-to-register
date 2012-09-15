@@ -41,7 +41,7 @@ function invfr_get_settings() {
 /**
  * Subject and email tokens used for merging
  */
-function invfr_tokens( $array = true ) {
+function invfr_tokens( ) {
 	$tokens = '<code>%sitename%</code>, <code>%siteurl%</code>, <code>%friendname%</code>, <code>%friendemail%</code>, <code>%username%</code>, <code>%useremail%</code>, <code>%inviteurl%</code';
 	return $tokens;
 }
