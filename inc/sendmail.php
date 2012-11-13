@@ -6,7 +6,8 @@ function invfr_sendmail() {
 	$post = ( !empty( $_POST ) ) ? true : false;
 	
 	if( $post ) {
-		extract( invfr_get_settings() ); // get settings: $subject, $message, $redirect
+		$subject = invfr_get_settings( 'subject' );
+		$message = invfr_get_settings( 'message' );
 		$friends = $_POST['friend_email'];
 		$errors = array();
 		foreach ( $friends as $key => $friend ) {

@@ -3,7 +3,7 @@
 Plugin Name: Invite Friends to Register
 Plugin URI: http://tammyhartdesigns.com/plugins-themes
 Description: Use this plugin to allow users to invite their friends to register on your site.
-Version: 0.2
+Version: 0.3
 Author: Tammy Hart
 Author URI: http://tammyhartdesigns.com
 License: GPLv2 or later

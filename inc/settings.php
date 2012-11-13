@@ -22,26 +22,46 @@ function invfr_settings_init() {
 }
 
 /**
+ * Returns the settings array with defaults
+ *
+ * @param	string	$field	The settings field you want to be returned
+ * @return	string			The field either from the saved settings or the default
+ */
+function invfr_get_settings( $field ) {
+	
+	$saved = (array) get_option( 'invfr_settings' );
+	$defaults = array(
+		'subject'	=> __( 'Your friend has invited you to register at %sitename%', 'invfr' ),
+		'message'	=> __( "Dear %friendname%,\n\nI think you would really enjoy being a member at %sitename%. Follow this link to register now: %inviteurl%\n\nYour friend,\n%username%", 'invfr' ),
+		'redirect'	=> get_option( 'siteurl' ) . '/wp-admin/profile.php',
+	);
+
+	$defaults = apply_filters( 'invfr_default_settings', $defaults );
+
+	$settings = wp_parse_args( $saved, $defaults );
+	$settings = array_intersect_key( $settings, $defaults );
+
+	return $settings[$field];
+}
+
+/**
  * Field callback functions
  */
 function invfr_subject_field() {
-	$settings = invfr_get_settings();
 	?>
-	<input type="text" class="regular-text" name="invfr_settings[subject]" id="subject" value="<?php echo esc_attr( $settings['subject'] ); ?>" /><br />
+	<input type="text" class="regular-text" name="invfr_settings[subject]" id="subject" value="<?php echo esc_attr( invfr_get_settings( 'subject' ) ); ?>" /><br />
 	<label class="description" for="subject"><?php _e( 'Available tokens: ', 'invfr' ); echo invfr_tokens(); ?></label>
 	<?php
 }
 function invfr_message_field() {
-	$settings = invfr_get_settings();
 	?>
-	<textarea rows="5" cols="80" name="invfr_settings[message]" id="message"><?php echo wp_filter_nohtml_kses( $settings['message'] ); ?></textarea><br />
+	<textarea rows="5" cols="80" name="invfr_settings[message]" id="message"><?php echo wp_kses_stripslashes( invfr_get_settings( 'message' ) ); ?></textarea><br />
 	<label class="description" for="message"><?php _e( 'Available tokens: ', 'invfr' ); echo invfr_tokens(); ?></label>
 	<?php
 }
 function invfr_redirect_field() {
-	$settings = invfr_get_settings();
 	?>
-	<input type="text" class="regular-text" name="invfr_settings[redirect]" id="redirect" value="<?php echo esc_url_raw( $settings['redirect'] ); ?>" /><br />
+	<input type="text" class="regular-text" name="invfr_settings[redirect]" id="redirect" value="<?php echo esc_url_raw( invfr_get_settings( 'redirect' ) ); ?>" /><br />
 	<label class="description" for="redirect"><?php _e( 'URL to redirect the friend to after they register.', 'invfr' ); ?></label>
 	<?php
 }
@@ -54,7 +74,6 @@ function invfr_settings_page() {
 	<div class="wrap">
 		<?php screen_icon(); ?>
 		<h2><?php _e( 'Invite Friends Settings', 'invfr' ); ?></h2>
-		<?php settings_errors(); ?>
 
 		<form method="post" action="options.php">
 			<?php
@@ -82,11 +101,11 @@ function invfr_settings_validate( $input ) {
 
 	// The sample text input must be safe text with no HTML tags
 	if ( isset( $input['subject'] ) && ! empty( $input['subject'] ) )
-		$output['subject'] = esc_attr( $input['subject'] );
+		$output['subject'] = sanitize_text_field( $input['subject'] );
 
 	// The sample text input must be safe text with no HTML tags
 	if ( isset( $input['message'] ) && ! empty( $input['message'] ) )
-		$output['message'] = wp_filter_nohtml_kses( $input['message'] );
+		$output['message'] = wp_kses_stripslashes( $input['message'] );
 
 	// The sample text input must be safe text with no HTML tags
 	if ( isset( $input['redirect'] ) && ! empty( $input['redirect'] ) )

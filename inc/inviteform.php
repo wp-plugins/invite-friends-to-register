@@ -90,7 +90,7 @@ function invfr_form() {
 				</table>
 									
 				<p class="submit"><input type="submit" value="<?php _e( 'Send Invitation', 'invfr' ); ?>" class="button button-primary" /> 
-					<img src="<?php echo get_option( 'siteurl'); ?>/wp-admin/images/loading-publish.gif" class="loading" /></p>
+					<img src="<?php echo get_option( 'siteurl'); ?>/wp-admin/images/loading.gif" class="loading" /></p>
 					
 				<input type="hidden" name="user_id" value="<?php echo $user_id; ?>" />
 				<input type="hidden" name="user_name" value="<?php echo $user_name; ?>" />

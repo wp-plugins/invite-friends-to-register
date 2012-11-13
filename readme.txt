@@ -3,8 +3,8 @@ Contributors: tammyhart
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=tammyhartdesigns%40gmail%2ecom&item_name=Invite%20Friends%20to%20Register%20Plugin&no_shipping=0&no_note=1
 Tags: invite, users, mail, registration
 Requires at least: 3.0
-Tested up to: 3.4.2
-Stable tag: 0.2
+Tested up to: 3.5
+Stable tag: 0.3
 License: GPLv2 or later
 
 Use this plugin to allow users to invite their friends to register on your site.
@@ -33,9 +33,16 @@ Activate and let user's invite their friends under Users > Invite Friends!
 
 == Changelog ==
 
+= 0.3 - November 13, 2012 =
+* Removed invfr_validate_email() from functions.php since it is no longer used
+* added a filter to the tokens: invr_tokens
+* added a filter to token replacements: invfr_token_replacements
+* Changed return of invfr_get_settings() from an array of settings, the individually specified field
+* Fixed data sanitization on the settings fields
+
 = 0.2 - September 15, 2012 =
 * Moved load textdomain to init
-* Replaced invfr_validate_email with is_email
+* Replaced invfr_validate_email() with is_email()
 * Updated Ajax sendmail method
 (Special thanks to [Pippin Williamson](http://www.pippinsplugins.com) for the code review and these fix suggestions!)
 

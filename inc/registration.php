@@ -30,7 +30,6 @@ function invfr_register_hook( $user_id ) {
  * returns the invitation url
  */
 function invfr_invite_url( $user_id ) {
-	extract( invfr_get_settings() ); // get settings: $subject, $message, $redirect
-	$url = get_option( 'siteurl' ) . '/wp-login.php?action=register&invfr=' . $user_id . '&redirect_to=' . $redirect;
+	$url = get_option( 'siteurl' ) . '/wp-login.php?action=register&invfr=' . $user_id . '&redirect_to=' . invfr_get_settings( 'redirect' );
 	return $url;
 }
